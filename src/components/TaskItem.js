@@ -7,7 +7,7 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
 
   const handleUpdateTask = async () => {
     try {
-      const response = await axios.put(`http://127.0.0.1:8000/tasks/${task.id}/`, editedTask, {
+      const response = await axios.put(`/api/tasks/${task.id}/`, editedTask, {
         headers: { Authorization: `Token ${token}` },
       });
       setTasks(tasks.map(t => (t.id === task.id ? response.data : t)));
@@ -19,7 +19,7 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
 
   const handleDeleteTask = async () => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/tasks/${task.id}/`, {
+      await axios.delete(`api/tasks/${task.id}/`, {
         headers: { Authorization: `Token ${token}` },
       });
       setTasks(tasks.filter(t => t.id !== task.id));

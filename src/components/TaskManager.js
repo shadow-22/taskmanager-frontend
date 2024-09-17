@@ -12,7 +12,7 @@ const TaskManager = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/tasks/', {
+        const response = await axios.get('/api/tasks/', {
           headers: { Authorization: `Token ${token}` },
         });
         setTasks(response.data);
@@ -27,7 +27,7 @@ const TaskManager = () => {
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/tasks/', newTask, {
+      const response = await axios.post('/api/tasks/', newTask, {
         headers: { Authorization: `Token ${token}` },
       });
       setTasks([...tasks, response.data]);
