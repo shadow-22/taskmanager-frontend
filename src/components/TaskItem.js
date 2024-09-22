@@ -42,27 +42,29 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
   };
 
   return (
-    <li>
+    <li className="list-group-item d-flex justify-content-between align-items-center">
       {isEditing ? (
-        <>
+        <div className="d-flex">
           <input
             type="text"
+            className="form-control me-2"
             value={editedTask.title}
             onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
           />
-          <button onClick={handleUpdateTask}>Save</button>
-        </>
+          <button onClick={handleUpdateTask} className="btn btn-success">Save</button>
+        </div>
       ) : (
-        <>
+        <div className="d-flex align-items-center">
           <input
             type="checkbox"
             checked={task.is_completed}
             onChange={handleToggleComplete}
+            className="form-check-input me-2"
           />
           <span style={{ textDecoration: task.is_completed ? 'line-through' : 'none' }}>{task.title}</span>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-          <button onClick={handleDeleteTask}>Delete</button>
-        </>
+          <button onClick={() => setIsEditing(true)} className="btn btn-warning btn-sm ms-2">Edit</button>
+          <button onClick={handleDeleteTask} className="btn btn-danger btn-sm ms-2">Delete</button>
+        </div>
       )}
     </li>
   );

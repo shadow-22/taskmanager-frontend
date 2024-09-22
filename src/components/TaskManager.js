@@ -38,27 +38,37 @@ const TaskManager = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Task Manager</h2>
-      <form onSubmit={handleAddTask}>
-        <input
-          type="text"
-          placeholder="Task Title"
-          value={newTask.title}
-          onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Task Description"
-          value={newTask.description}
-          onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
-        />
-        <button type="submit">Add Task</button>
+      <form onSubmit={handleAddTask} className="mb-3">
+        <div className="mb-3">
+          <label htmlFor="taskTitle" className="form-label">Task Title</label>
+          <input
+            type="text"
+            className="form-control"
+            id="taskTitle"
+            placeholder="Enter Task Title"
+            value={newTask.title}
+            onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="taskDescription" className="form-label">Task Description</label>
+          <input
+            type="text"
+            className="form-control"
+            id="taskDescription"
+            placeholder="Enter Task Description"
+            value={newTask.description}
+            onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Add Task</button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <div className="alert alert-danger">{error}</div>}
 
-      <ul>
+      <ul className="list-group">
         {tasks.map((task) => (
           <TaskItem key={task.id} task={task} token={token} setTasks={setTasks} tasks={tasks} />
         ))}
