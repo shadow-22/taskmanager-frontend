@@ -6,7 +6,8 @@ const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({ title: '', description: '' });
   const [error, setError] = useState('');
-
+  const [next, setNext] = useState(null); // To handle pagination
+  const [previous, setPrevious] = useState(null); // To handle pagination
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -15,7 +16,9 @@ const TaskManager = () => {
         const response = await axios.get('/api/tasks/', {
           headers: { Authorization: `Token ${token}` },
         });
-        setTasks(response.data);
+        setTasks(response.data.results); // Extract tasks from response
+        setNext(response.data.next); // Set next page URL
+        setPrevious(response.data.previous); // Set previous page URL
       } catch (error) {
         setError('Failed to load tasks.');
       }
@@ -34,6 +37,21 @@ const TaskManager = () => {
       setNewTask({ title: '', description: '' });
     } catch (error) {
       setError('Failed to add task.');
+    }
+  };
+
+  const handleLoadMore = async () => {
+    if (next) {
+      try {
+        const response = await axios.get(next.replace('http://127.0.0.1:8000', ''), {
+          headers: { Authorization: `Token ${token}` },
+        });
+        setTasks([...tasks, ...response.data.results]); // Append new tasks
+        setNext(response.data.next); // Update next URL
+        setPrevious(response.data.previous); // Update previous URL
+      } catch (error) {
+        setError('Failed to load more tasks.');
+      }
     }
   };
 
@@ -73,6 +91,13 @@ const TaskManager = () => {
           <TaskItem key={task.id} task={task} token={token} setTasks={setTasks} tasks={tasks} />
         ))}
       </ul>
+
+      {next && (
+        <button className="btn btn-secondary mt-3" onClick={handleLoadMore}>
+          Load More
+        </button>
+      )}
+
     </div>
   );
 };
