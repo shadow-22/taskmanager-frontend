@@ -26,11 +26,12 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-group">
       <input
           type="text"
+          className="form-control mb-3"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)} // Handle username input
@@ -38,6 +39,7 @@ const Register = () => {
         />
         <input
           type="email"
+          className="form-control mb-3"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -45,14 +47,15 @@ const Register = () => {
         />
         <input
           type="password"
+          className="form-control mb-3"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Register</button>
+        <button type="submit" className="btn btn-primary">Register</button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="text-danger mt-3">{error}</p>}
     </div>
   );
 };
