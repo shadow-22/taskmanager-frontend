@@ -5,6 +5,19 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
 
+
+  const handleToggleComplete = async () => {
+    try {
+      const updatedTask = { ...task, is_completed: !task.is_completed };
+      const response = await axios.put(`/api/tasks/${task.id}/`, updatedTask, {
+        headers: { Authorization: `Token ${token}` },
+      });
+      setTasks(tasks.map(t => (t.id === task.id ? response.data : t)));
+    } catch (error) {
+      alert('Failed to update task completion status.');
+    }
+  };
+
   const handleUpdateTask = async () => {
     try {
       const response = await axios.put(`/api/tasks/${task.id}/`, editedTask, {
@@ -41,7 +54,12 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
         </>
       ) : (
         <>
-          <span>{task.title}</span>
+          <input
+            type="checkbox"
+            checked={task.is_completed}
+            onChange={handleToggleComplete}
+          />
+          <span style={{ textDecoration: task.is_completed ? 'line-through' : 'none' }}>{task.title}</span>
           <button onClick={() => setIsEditing(true)}>Edit</button>
           <button onClick={handleDeleteTask}>Delete</button>
         </>

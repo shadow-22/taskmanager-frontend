@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -10,8 +11,14 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!username || !email || !password || password.length < 6) {
+      setError('All fields are required, and password must be at least 6 characters.');
+      return;
+    }
+
     try {
-      await axios.post('/api/register/', { email, password });
+      await axios.post('/api/register/', { username, email, password });
       navigate('/login');
     } catch (error) {
       setError('Registration failed. Try again.');
@@ -22,6 +29,13 @@ const Register = () => {
     <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
+      <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)} // Handle username input
+          required
+        />
         <input
           type="email"
           placeholder="Email"
