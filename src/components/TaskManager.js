@@ -7,7 +7,7 @@ const TaskManager = () => {
   const [newTask, setNewTask] = useState({ title: '', description: '' });
   const [error, setError] = useState('');
   const [next, setNext] = useState(null); // To handle pagination
-  // uncomment next line if you ever need a button or something to hide/go to previous page
+  // uncomment next line(s) if you ever need a button or something to hide/go to previous page
   // const [previous, setPrevious] = useState(null); 
   const token = localStorage.getItem('token');
 
@@ -19,7 +19,7 @@ const TaskManager = () => {
         });
         setTasks(response.data.results); // Extract tasks from response
         setNext(response.data.next); // Set next page URL
-        setPrevious(response.data.previous); // Set previous page URL
+        //setPrevious(response.data.previous); // Set previous page URL
       } catch (error) {
         setError('Failed to load tasks.');
       }
@@ -49,7 +49,7 @@ const TaskManager = () => {
         });
         setTasks([...tasks, ...response.data.results]); // Append new tasks
         setNext(response.data.next); // Update next URL
-        setPrevious(response.data.previous); // Update previous URL
+        //setPrevious(response.data.previous); // Update previous URL
       } catch (error) {
         setError('Failed to load more tasks.');
       }
