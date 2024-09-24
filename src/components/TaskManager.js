@@ -7,7 +7,8 @@ const TaskManager = () => {
   const [newTask, setNewTask] = useState({ title: '', description: '' });
   const [error, setError] = useState('');
   const [next, setNext] = useState(null); // To handle pagination
-  const [previous, setPrevious] = useState(null); // To handle pagination
+  // uncomment next line if you ever need a button or something to hide/go to previous page
+  // const [previous, setPrevious] = useState(null); 
   const token = localStorage.getItem('token');
 
   useEffect(() => {
