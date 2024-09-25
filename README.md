@@ -26,10 +26,12 @@ This is the frontend part of the **Task Manager** app, built using **React**. Th
 
 2. **Install dependencies:**
     
+    ```bash
     npm install
 
 3. **Start the development server:**
     
+    ```bash
     npm start
 
     The app will be running at http://localhost:3000
