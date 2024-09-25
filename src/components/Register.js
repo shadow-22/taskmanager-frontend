@@ -21,7 +21,14 @@ const Register = () => {
       await axios.post('/api/register/', { username, email, password });
       navigate('/login');
     } catch (error) {
-      setError('Registration failed. Try again.');
+      if (error.response && error.response.data) {
+        const errorMessages = error.response.data;
+        const uniqueError = errorMessages.email ? errorMessages.email[0] : null;
+        const nonFieldError = errorMessages.non_field_errors ? errorMessages.non_field_errors[0] : null;
+        setError(uniqueError || nonFieldError || 'Registration failed. Try again.');
+      } else {
+        setError('Registration failed. Try again.');
+      }
     }
   };
 
