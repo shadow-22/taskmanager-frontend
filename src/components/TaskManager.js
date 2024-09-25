@@ -10,12 +10,14 @@ const TaskManager = () => {
   // uncomment next line(s) if you ever need a button or something to hide/go to previous page
   // const [previous, setPrevious] = useState(null); 
   const token = localStorage.getItem('token');
+  const [isCompleted, setIsCompleted] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const response = await axios.get('/api/tasks/', {
           headers: { Authorization: `Token ${token}` },
+          params: { is_completed: isCompleted },
         });
         setTasks(response.data.results); // Extract tasks from response
         setNext(response.data.next); // Set next page URL
@@ -26,7 +28,7 @@ const TaskManager = () => {
     };
 
     fetchTasks();
-  }, [token]);
+  }, [token, isCompleted]);
 
   const handleAddTask = async (e) => {
     e.preventDefault();
@@ -56,9 +58,32 @@ const TaskManager = () => {
     }
   };
 
+  const isCompletedHandler = () => {
+    setIsCompleted(true); 
+  };
+
+  const NotCompletedHandler = () => {
+    setIsCompleted(false); 
+  };
+
+  const resetIsCompletedHandler = () => {
+    setIsCompleted(null); 
+  };
+
   return (
     <div className="container mt-4">
       <h2>Task Manager</h2>
+      <div className="mb-3">
+        <button className="btn btn-secondary me-2" onClick={isCompletedHandler}>
+          Show Completed
+        </button>
+        <button className="btn btn-secondary me-2" onClick={NotCompletedHandler}>
+          Show Not Completed
+        </button>
+        <button className="btn btn-secondary" onClick={resetIsCompletedHandler}>
+          Show All
+        </button>
+      </div>
       <form onSubmit={handleAddTask} className="mb-3">
         <div className="mb-3">
           <label htmlFor="taskTitle" className="form-label">Task Title</label>
