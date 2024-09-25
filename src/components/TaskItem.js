@@ -4,7 +4,7 @@ import axios from 'axios';
 const TaskItem = ({ task, token, setTasks, tasks }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
-
+  const [showDescription, setShowDescription] = useState(false);
 
   const handleToggleComplete = async () => {
     try {
@@ -41,6 +41,10 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
     }
   };
 
+  const toggleDescription = () => {
+    setShowDescription(!showDescription); // Toggle description visibility
+  };
+
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
       {isEditing ? (
@@ -64,8 +68,12 @@ const TaskItem = ({ task, token, setTasks, tasks }) => {
           <span style={{ textDecoration: task.is_completed ? 'line-through' : 'none' }}>{task.title}</span>
           <button onClick={() => setIsEditing(true)} className="btn btn-warning btn-sm ms-2">Edit</button>
           <button onClick={handleDeleteTask} className="btn btn-danger btn-sm ms-2">Delete</button>
+          <button onClick={toggleDescription} className="btn btn-info btn-sm ms-2">
+            {showDescription ? 'Hide Description' : 'View Description'}
+          </button>
         </div>
       )}
+        {showDescription && <div className="mt-2">{task.description}</div>}
     </li>
   );
 };
