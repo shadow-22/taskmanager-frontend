@@ -31,5 +31,5 @@ This is the frontend part of the **Task Manager** app, built using **React**. Th
 The app will be running at http://localhost:3000
 
 4. **API Backend**
-Make sure the Django backend is running locally on http://127.0.0.1:8000 or update the base API URL in the code if your backend is hosted elsewhere.
+    Make sure the Django backend is running locally on http://127.0.0.1:8000 or update the base API URL in the code if your backend is hosted elsewhere.
 
