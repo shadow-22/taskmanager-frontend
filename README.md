@@ -19,8 +19,10 @@ This is the frontend part of the **Task Manager** app, built using **React**. Th
 1. **Clone the repository:**
 
     ```bash
-    git clone <repo-url>
-    cd <repo-directory>/frontend
+    mkdir frontend
+    cd frontend
+    git clone https://github.com/shadow-22/taskmanager-frontend.git
+    cd taskmanager-frontend
 
 2. **Install dependencies:**
     
@@ -34,5 +36,5 @@ This is the frontend part of the **Task Manager** app, built using **React**. Th
 
 4. **API Backend:**
 
-Make sure the Django backend is running locally on http://127.0.0.1:8000 or update the base API URL in the code if your backend is hosted elsewhere.
+    Make sure the Django backend is running locally on http://127.0.0.1:8000 or update the "proxy" value in the package.json file accordingly if your backend is hosted elsewhere.
 
